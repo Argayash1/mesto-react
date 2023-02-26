@@ -1,33 +1,13 @@
-import logo from './images/header-logo.svg';
-import avatar from './images/profile-cousteau.jpg'
+import Header from '../components/Header.js';
+import Main from '../components/Main.js';
+import Footer from '../components/Footer.js';
 
 function App() {
   return (
     <div className="page">
-      <header className="header">
-        <img className="header__logo" src={logo} alt="Логотип" />
-      </header>
-      <main className="content page__content">
-        <section className="profile">
-          <div className="profile__items">
-            <button className="profile__avatar-button" type="button">
-              <img className="profile__avatar" src={avatar} alt="Аватар пользователя" />
-            </button>
-            <div className="profile-info">
-              <h1 className="profile-info__name">Жак-Ив Кусто</h1>
-              <button className="profile-info__edit-button" type="button"></button>
-              <p className="profile-info__profession">Исследователь океана</p>
-            </div>
-          </div>
-          <button className="profile__add-button" type="button"></button>
-        </section>
-        <section className="elements content__elements">
-          <ul className="elements-list"></ul>
-        </section>
-      </main>
-      <footer className="footer">
-        <p className="footer__copyright">&copy; 2023 Mesto Russia</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />
       <section className="popup popup_type_profile">
         <div className="popup__container">
           <button className="popup__close" type="button"></button>
@@ -96,7 +76,7 @@ function App() {
       <template id="element-template">
         <li className="element">
           <button className="element__delete-button" type="button"></button>
-          <img className="element__image" />
+          <img className="element__image" src="#" alt="#" />
           <div className="element__info">
             <h3 className="element__title"></h3>
             <button className="element__like-button" type="button"></button>
