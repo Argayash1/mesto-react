@@ -1,17 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './images/header-logo.svg';
+import avatar from './images/profile-cousteau.jpg'
 
 function App() {
   return (
     <div className="page">
       <header className="header">
-        <img className="header__logo" src="<%=require('./images/header-logo.svg')%>" alt="Логотип" />
+        <img className="header__logo" src={logo} alt="Логотип" />
       </header>
       <main className="content page__content">
         <section className="profile">
           <div className="profile__items">
             <button className="profile__avatar-button" type="button">
-              <img className="profile__avatar" src="<%=require('./images/profile-cousteau.jpg')%>" alt="Аватар пользователя" />
+              <img className="profile__avatar" src={avatar} alt="Аватар пользователя" />
             </button>
             <div className="profile-info">
               <h1 className="profile-info__name">Жак-Ив Кусто</h1>
