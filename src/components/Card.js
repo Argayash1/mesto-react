@@ -1,0 +1,15 @@
+function Card({card}) {
+    return (
+        <li className="element" key={card._id}>
+        <button className="element__delete-button" type="button"></button>
+        <img className="element__image" src={card.link} alt={card.name} />
+        <div className="element__info">
+          <h3 className="element__title">{card.name}</h3>
+          <button className="element__like-button" type="button"></button>
+          <span className="element__count-likes">{card.likes.length}</span>
+        </div>
+      </li>
+    )
+}
+
+export default Card;

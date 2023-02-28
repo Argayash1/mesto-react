@@ -1,6 +1,7 @@
 import React from 'react';
-import avatar from '../images/profile-cousteau.jpg';
+// import avatar from '../images/profile-cousteau.jpg';
 import { api } from '../utils/Api.js';
+import Card from '../components/Card.js';
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
   const [userName, setUsername] = React.useState('')
@@ -10,7 +11,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
 
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([{name, about, avatar}, cardsData]) => {
+      .then(([{ name, about, avatar }, cardsData]) => {
         setUsername(name);
         setUserDescription(about);
         setuserAvatar(avatar);
@@ -39,17 +40,11 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
       <section className="elements content__elements">
         <ul className="elements-list">
           {cards.map((card) => {
-       return (   <li className="element" key={card._id}>
-            <button className="element__delete-button" type="button"></button>
-            <img className="element__image" src={card.link} alt={card.name} />
-            <div className="element__info">
-              <h3 className="element__title">{card.name}</h3>
-              <button className="element__like-button" type="button"></button>
-              <span className="element__count-likes">{card.likes.length}</span>
-            </div>
-          </li>)
-        }
-        )}
+            return (
+             <Card card={card} />
+            )
+          }
+          )}
         </ul>
       </section>
     </main>
