@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Проект: Место
+Alt-H1
+--------------------------------------------
+## Выполнен с помощью React
+Alt-H1
+-------------------------------------------- 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Описание проекта
+Alt-H1
+-------------------
+Проект Место - это небольшая социальная сеть, в которой пользователь может разместить фотографии любимых мест, городов, стран, которые он посетил или мечтает посетить. К тому же, на сайте можно увидеть фотографии, которые загрузили другие пользователи, и поставить (или снять) лайки на этих фотографиях и на фотографиях, размещённых самим пользователем. Кроме того, можно просмотреть любые фото в крупном размере и удалить фото, загруженные пользователем. Также можно редактировать данные пользователя - имя и фамилию, информацию о себе и даже аватар.  
 
-In the project directory, you can run:
+Этот проект - первый опыт автора с ипользованием **React**. Именно с помощью самых разнообразных возможностей фреймворка **React** реализованы все основные возможности сайта - добавление и удаление фото с заголовками, появление и скрытие модальных окон (попапов изменения аватара, редактирования профиля, добавления карточки, подтверждения удаления карточки, просмотра картинки), постановка и снятие лайков на карточках. В соответствии с особенностями React основные части сайта вынесены в отдельные компоненты, в которых описаны их разметка и функционал. Также, здесь впервые для автора используется JSX - "синтаксический сахар", симбиоз языков JavaScript и HTML. 
 
-### `npm start`
+## Технологии, которые используются на сайте
+Alt-H1
+--------------------------------------------
+* HTML
+* CSS
+* Адаптивная вёрстка
+* Flex-box
+* Grid-layout
+* Позиционирование
+* БЭМ
+* Псевдоклассы
+* Миксы классов
+* Nested 
+* Анимация
+* JavaScript
+* React
+* JSX 
+ 
+## Инструкция по использования проекта.  
+Alt-H1
+--------------------------------------------
+В проекте исопльзуется язык HTML версии 5.3 в сочетании со стилевыми CSS-файлами.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Ссылка на макет в Figma
+Alt-H1
+-------------------------------------------- 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 
-### `npm run build`
+## Ссылка на проект в github-pages:
+https://argayash1.github.io/mesto/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Желаю увлекательного изучения!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

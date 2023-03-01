@@ -1,5 +1,4 @@
 import React from 'react';
-// import avatar from '../images/profile-cousteau.jpg';
 import { api } from '../utils/Api.js';
 import Card from '../components/Card.js';
 
