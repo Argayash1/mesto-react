@@ -3,7 +3,7 @@ import React from 'react';
 import { api } from '../utils/Api.js';
 import Card from '../components/Card.js';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
   const [userName, setUsername] = React.useState('')
   const [userDescription, setUserDescription] = React.useState('')
   const [userAvatar, setuserAvatar] = React.useState('')
@@ -41,7 +41,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
         <ul className="elements-list">
           {cards.map((card) => {
             return (
-             <Card card={card} />
+             <Card card={card} onCardClick={onCardClick} key={card._id} />
             )
           }
           )}

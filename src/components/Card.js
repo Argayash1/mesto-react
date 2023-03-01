@@ -1,8 +1,12 @@
-function Card({card}) {
+function Card({card, onCardClick}) {
+  function handleClick() {
+    onCardClick(card);
+  }
+
     return (
-        <li className="element" key={card._id}>
+        <li className="element">
         <button className="element__delete-button" type="button"></button>
-        <img className="element__image" src={card.link} alt={card.name} />
+        <img className="element__image" src={card.link} alt={card.name} onClick={handleClick}/>
         <div className="element__info">
           <h3 className="element__title">{card.name}</h3>
           <button className="element__like-button" type="button"></button>

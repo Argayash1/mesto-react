@@ -1,10 +1,10 @@
-function ImagePopup() {
+function ImagePopup({card, onClose, onCloseByClickOnOverlay}) {
     return (
-        <section className="popup popup_type_image">
+        <section className={`popup popup_type_image ${card ? "popup_is-opened" : ""}`} onMouseDown={onCloseByClickOnOverlay}>
         <div className="popup__image-container">
-          <button className="popup__close" type="button"></button>
-          <img className="popup__photo" src="#" alt="#" />
-          <p className="popup__caption"></p>
+          <button className="popup__close" type="button" onClick={onClose}></button>
+          <img className="popup__photo" src={card.link} alt={card.name} />
+          <p className="popup__caption">{card.name}</p>
         </div>
       </section> 
     )
