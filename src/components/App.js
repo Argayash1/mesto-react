@@ -43,47 +43,51 @@ function App() {
   return (
     <div className="page">
       <Header />
+
       <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick} 
-        onCardClick={handleCardClick}/>
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick} />
       <Footer />
+
       <PopupWithForm
         title="Редактировать профиль"
         name="profile"
         children={
-        <>
-          <input type="text" id="name" className="popup__input" name="name" placeholder="Имя" autoComplete="off" required
-            minLength="2" maxLength="40" />
-          <span className="popup__error" id="name-error"></span>
-          <input type="text" id="profession" className="popup__input" name="about" placeholder="Профессия" autoComplete="off"
-            required minLength="2" maxLength="200" />
-          <span className="popup__error" id="profession-error"></span>
-        </>}
+          <>
+            <input type="text" id="name" className="popup__input" name="name" placeholder="Имя" autoComplete="off" required
+              minLength="2" maxLength="40" />
+            <span className="popup__error" id="name-error"></span>
+            <input type="text" id="profession" className="popup__input" name="about" placeholder="Профессия" autoComplete="off"
+              required minLength="2" maxLength="200" />
+            <span className="popup__error" id="profession-error"></span>
+          </>}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
         submitButtonText="Сохранить"
       />
+
       <PopupWithForm
         title="Новое место"
         name="card"
         children={
-        <>
-          <input type="text" id="title" className="popup__input" name="place" placeholder="Название" autoComplete="off"
-            required minLength="2" maxLength="30" />
-          <span className="popup__error" id="title-error"></span>
-          <input type="url" id="url" className="popup__input" name="url" placeholder="Ссылка на картинку" autoComplete="off"
-            required />
-          <span className="popup__error" id="url-error"></span>
-        </>
+          <>
+            <input type="text" id="title" className="popup__input" name="place" placeholder="Название" autoComplete="off"
+              required minLength="2" maxLength="30" />
+            <span className="popup__error" id="title-error"></span>
+            <input type="url" id="url" className="popup__input" name="url" placeholder="Ссылка на картинку" autoComplete="off"
+              required />
+            <span className="popup__error" id="url-error"></span>
+          </>
         }
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
         submitButtonText="Создать"
       />
+
       <PopupWithForm
         title="Обновить аватар"
         name="new-avatar"
@@ -97,15 +101,17 @@ function App() {
         onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
         submitButtonText="Сохранить"
       />
+
       <PopupWithForm
-          title="Вы уверены?"
-          name="delete-card"
-          children={[]}
-          onClose={closeAllPopups}
-          onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
-          submitButtonText="Да"
-          />
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}/>
+        title="Вы уверены?"
+        name="delete-card"
+        children={[]}
+        onClose={closeAllPopups}
+        onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
+        submitButtonText="Да"
+      />
+
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay} />
     </div>
   );
 }
