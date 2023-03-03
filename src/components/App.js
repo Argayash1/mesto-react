@@ -9,6 +9,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
   useEffect(() => {
@@ -17,7 +18,7 @@ function App() {
         closeAllPopups()
       }
     }
-  
+
     document.addEventListener('keydown', handleEscapeKey)
     return () => document.removeEventListener('keydown', handleEscapeKey)
   }, [])
@@ -34,6 +35,10 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
   }
 
+  function handleDeleteCardClick() {
+    setIsDeletePopupOpen(!isDeletePopupOpen)
+  }
+
   function handleCardClick({ name, link }) {
     setSelectedCard({ name, link })
   }
@@ -43,10 +48,11 @@ function App() {
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setSelectedCard(false)
+    setIsDeletePopupOpen(false)
   }
 
   function closeAllPopupsByCliclOnOverlay(e) {
-    if (e.target.contains(e.currentTarget)) {
+    if (e.target === e.currentTarget) {
       closeAllPopups();
     }
   }
@@ -59,7 +65,8 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick} />
+        onCardClick={handleCardClick} 
+        onDeleteCardClick={handleDeleteCardClick}/>
       <Footer />
 
       <PopupWithForm
@@ -146,10 +153,11 @@ function App() {
       <PopupWithForm
         title="Вы уверены?"
         name="delete-card"
+        isOpen={isDeletePopupOpen}
         onClose={closeAllPopups}
         onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
         submitButtonText="Да"
-      ></PopupWithForm>
+      />
 
       <ImagePopup
         card={selectedCard}
