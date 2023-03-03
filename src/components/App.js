@@ -12,6 +12,9 @@ function App() {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
+  const states = [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isDeletePopupOpen];
+  const isAnyStatesTrue = states.some(state => state === true);
+
   useEffect(() => {
     function handleEscapeKey(e) {
       if (e.key === 'Escape') {
@@ -19,9 +22,12 @@ function App() {
       }
     }
 
-    document.addEventListener('keydown', handleEscapeKey)
+    if (isAnyStatesTrue || Object.keys(selectedCard).length > 0) {
+      document.addEventListener('keydown', handleEscapeKey)
+    }
+
     return () => document.removeEventListener('keydown', handleEscapeKey)
-  }, [])
+  }, [isAnyStatesTrue, selectedCard])
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
@@ -47,7 +53,7 @@ function App() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
-    setSelectedCard(false)
+    setSelectedCard({})
     setIsDeletePopupOpen(false)
   }
 
@@ -65,8 +71,8 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick} 
-        onDeleteCardClick={handleDeleteCardClick}/>
+        onCardClick={handleCardClick}
+        onDeleteCardClick={handleDeleteCardClick} />
       <Footer />
 
       <PopupWithForm
