@@ -24,7 +24,10 @@
  
 ## Инструкция по использования проекта.  
 В проекте исопльзуется язык HTML версии 5.3 в сочетании со стилевыми CSS-файлами.
-
+git clone https://github.com/VeraChernushina/mesto-react.git
+cd mesto-react
+npm install
+npm start
 
 
 ## Ссылка на макет проекта
