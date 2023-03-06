@@ -26,10 +26,10 @@
 В проекте исопльзуется язык HTML версии 5.3 в сочетании со стилевыми CSS-файлами.
 
 Инструкция по установке:
-git clone 
-cd mesto-react
-npm install
-npm start
+* git clone 
+* cd mesto-react
+* npm install
+* npm start
 
 
 ## Ссылка на макет проекта
