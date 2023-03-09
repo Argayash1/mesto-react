@@ -5,6 +5,7 @@ import Footer from '../components/Footer.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import ImagePopup from '../components/ImagePopup.js';
 import { api } from '../utils/Api.js';
+import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -23,8 +24,6 @@ function App() {
       setCurrentUser(userData);
     })
   }, [])
-
-  console.log(currentUser)
 
   useEffect(() => {
     function handleEscapeKey(e) {
@@ -75,6 +74,7 @@ function App() {
   }
 
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
       <Header />
 
@@ -181,6 +181,7 @@ function App() {
         onClose={closeAllPopups}
         onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay} />
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 
