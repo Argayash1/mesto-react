@@ -4,6 +4,7 @@ import Main from '../components/Main.js';
 import Footer from '../components/Footer.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import ImagePopup from '../components/ImagePopup.js';
+import { api } from '../utils/Api.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -11,9 +12,19 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
 
   const states = [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isDeletePopupOpen];
   const isAnyStatesTrue = states.some(state => state === true);
+
+  useEffect(() => {
+    api.getUserInfo()
+    .then((userData) => {
+      setCurrentUser(userData);
+    })
+  }, [])
+
+  console.log(currentUser)
 
   useEffect(() => {
     function handleEscapeKey(e) {
