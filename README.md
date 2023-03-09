@@ -1,4 +1,4 @@
-# Проект: Место
+# Проект: Место - проектная работа для [Яндекс Практикум](https://practicum.yandex.ru/)
 ## Выполнен с помощью React
 ![Скриншот 02-03-2023 031306](https://user-images.githubusercontent.com/113699485/222625978-8c89e6fa-e058-4f61-9aa1-32b9e46047b4.jpg)
 ## Описание проекта
@@ -22,15 +22,20 @@
 * React
 * JSX 
  
-## Инструкция по использования проекта.  
-В проекте исопльзуется язык HTML версии 5.3 в сочетании со стилевыми CSS-файлами.
+## Инструкция по использованию проекта.  
+В проекте исопльзуется язык HTML версии 5.3 в сочетании со стилевыми файлами CSS версии 3.
 
+Инструкция по установке:
+* git clone https://github.com/Argayash1/mesto-react.git
+* cd mesto-react
+* npm install
+* npm start
 
 
 ## Ссылка на макет проекта
 * [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 
-## Ссылка на деплой проекта:
+## Ссылка на деплой проекта
 * [Ссылка на проект в github-pages](https://argayash1.github.io/mesto-react/)
 
 ## Желаю увлекательного изучения!
