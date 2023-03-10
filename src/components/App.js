@@ -98,6 +98,7 @@ function App() {
   // function handleDeleteCardClick() {
   //   setIsDeletePopupOpen(!isDeletePopupOpen)
   // }
+  
 
   function handleCardClick({ name, link }) {
     setSelectedCard({ name, link })
