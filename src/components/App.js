@@ -3,6 +3,7 @@ import Header from '../components/Header.js';
 import Main from '../components/Main.js';
 import Footer from '../components/Footer.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import EditProfilePopup from '../components/EditProfilePopup.js';
 import ImagePopup from '../components/ImagePopup.js';
 import { api } from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
@@ -120,38 +121,8 @@ function App() {
           cards={cards} />
         <Footer />
 
-        <PopupWithForm
-          title="Редактировать профиль"
-          name="profile"
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
-          submitButtonText="Сохранить"
-        >
-          <input
-            type="text"
-            id="name"
-            className="popup__input"
-            name="name"
-            placeholder="Имя"
-            autoComplete="off"
-            required
-            minLength="2"
-            maxLength="40" />
-          <span className="popup__error" id="name-error"></span>
-          <input
-            type="text"
-            id="profession"
-            className="popup__input"
-            name="about"
-            placeholder="Профессия"
-            autoComplete="off"
-            required
-            minLength="2"
-            maxLength="200" />
-          <span className="popup__error" id="profession-error"></span>
-        </PopupWithForm>
-
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay} />
+        
         <PopupWithForm
           title="Новое место"
           name="card"
