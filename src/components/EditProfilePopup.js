@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import PopupWithForm from '../components/PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay }) {
+function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUser }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -12,6 +12,17 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay }) {
 
     function handleChangeDescription(e) {
         setDescription(e.target.value)
+    }
+
+    function handleSubmit(e) {
+        // Запрещаем браузеру переходить по адресу формы
+        e.preventDefault();
+
+        // Передаём значения управляемых компонентов во внешний обработчик
+        onUpdateUser({
+            name,
+            about: description,
+        });
     }
 
     // Подписка на контекст
@@ -32,6 +43,7 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay }) {
             isOpen={isOpen}
             onClose={onClose}
             onCloseByClickOnOverlay={onCloseByClickOnOverlay}
+            onSubmit={handleSubmit}
             submitButtonText="Сохранить"
         >
             <input

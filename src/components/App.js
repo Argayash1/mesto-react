@@ -47,6 +47,17 @@ function App() {
     return () => document.removeEventListener('keydown', handleEscapeKey)
   }, [isAnyStatesTrue, selectedCard])
 
+  function handleUpdateUser({name, about}) {
+    api.editProfile({name, about})
+      .then((userData) => {
+        setCurrentUser(userData)
+        closeAllPopups()
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+  }
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -121,8 +132,12 @@ function App() {
           cards={cards} />
         <Footer />
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay} />
-        
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
+          onUpdateUser={handleUpdateUser} />
+
         <PopupWithForm
           title="Новое место"
           name="card"

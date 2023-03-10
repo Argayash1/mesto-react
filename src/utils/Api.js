@@ -30,13 +30,12 @@ class Api {
     })
   }
 
-  editProfile(formValues) {
+  editProfile({name, about}) {
     return this._request('/users/me', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: formValues.name,
-        about: formValues.about
+        name, about
       })
     })
   }
