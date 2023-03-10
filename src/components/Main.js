@@ -4,10 +4,10 @@ import Card from '../components/Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCardClick }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCardClick, onCardLike }) {
   const [cards, setCards] = useState([])
   const currentUser = useContext(CurrentUserContext);
-
+// console.log(onCardLike)
 
   useEffect(() => {
     Promise.all([api.getInitialCards()])
@@ -38,7 +38,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCa
         <ul className="elements-list">
           {cards.map((card) => {
             return (
-              <Card card={card} onCardClick={onCardClick} onDeleteCardClick={onDeleteCardClick} key={card._id} />
+              <Card card={card} onCardClick={onCardClick} onDeleteCardClick={onDeleteCardClick} onCardLike={onCardLike} key={card._id} />
             )
           }
           )}

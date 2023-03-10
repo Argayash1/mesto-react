@@ -39,6 +39,19 @@ function App() {
     return () => document.removeEventListener('keydown', handleEscapeKey)
   }, [isAnyStatesTrue, selectedCard])
 
+  function handleCardLike(card) {
+    // console.log(card)
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+    .then((newCard) => {
+      // console.log(newCard)
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+}
+  
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
   }
@@ -83,7 +96,8 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
-        onDeleteCardClick={handleDeleteCardClick} />
+        onDeleteCardClick={handleDeleteCardClick} 
+        onCardLike={handleCardLike} />
       <Footer />
 
       <PopupWithForm

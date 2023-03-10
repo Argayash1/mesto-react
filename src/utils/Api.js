@@ -75,6 +75,13 @@ class Api {
       })
     })
   }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    return this._request(`/cards/${cardId}/likes`, {
+      method: `${isLiked ? 'PUT' : 'DELETE'}`,
+      headers: this._headers
+    })
+  }
 }
 
 // Создаём экземпляр класса Api
