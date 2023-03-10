@@ -23,8 +23,8 @@ function App() {
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, cardsData]) => {
-        setCards(cardsData);
         setCurrentUser(userData);
+        setCards(cardsData);
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -47,15 +47,27 @@ function App() {
   }, [isAnyStatesTrue, selectedCard])
 
   function handleCardLike(card) {
-    // console.log(card)
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        // console.log(newCard)
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+  }
+
+  function handleCardDelete(card) {
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
       });
   }
 
@@ -71,9 +83,9 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
   }
 
-  function handleDeleteCardClick() {
-    setIsDeletePopupOpen(!isDeletePopupOpen)
-  }
+  // function handleDeleteCardClick() {
+  //   setIsDeletePopupOpen(!isDeletePopupOpen)
+  // }
 
   function handleCardClick({ name, link }) {
     setSelectedCard({ name, link })
@@ -103,8 +115,8 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
-          onDeleteCardClick={handleDeleteCardClick}
-          onCardLike={handleCardLike} 
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
           cards={cards} />
         <Footer />
 

@@ -3,8 +3,10 @@ import Card from '../components/Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCardClick, onCardLike, cards }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete, cards }) {
   const currentUser = useContext(CurrentUserContext);
+
+  // console.log(onCardDelete)
 
   return (
     <main className="content page__content">
@@ -25,7 +27,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteCa
         <ul className="elements-list">
           {cards.map((card) => {
             return (
-              <Card card={card} onCardClick={onCardClick} onDeleteCardClick={onDeleteCardClick} onCardLike={onCardLike} key={card._id} />
+              <Card card={card} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} key={card._id} />
             )
           }
           )}
