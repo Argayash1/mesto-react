@@ -84,7 +84,7 @@ function App() {
         console.log(err); // выведем ошибку в консоль
       });
   }
-
+  
   function handleCardDelete(card) {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.deleteCard(card._id)
