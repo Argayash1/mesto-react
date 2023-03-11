@@ -4,6 +4,7 @@ import Main from '../components/Main.js';
 import Footer from '../components/Footer.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import EditProfilePopup from '../components/EditProfilePopup.js';
+import EditAvatarPopup from '../components/EditAvatarPopup.js';
 import ImagePopup from '../components/ImagePopup.js';
 import { api } from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
@@ -47,10 +48,22 @@ function App() {
     return () => document.removeEventListener('keydown', handleEscapeKey)
   }, [isAnyStatesTrue, selectedCard])
 
-  function handleUpdateUser({name, about}) {
-    api.editProfile({name, about})
+  function handleUpdateUser({ name, about }) {
+    api.editProfile({ name, about })
       .then((userData) => {
         setCurrentUser(userData)
+        closeAllPopups()
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+  }
+
+  function handleUpdateAvatar({ avatar }) {
+    console.log( {avatar} )
+    api.addNewAvatar({ avatar })
+      .then((avatarData) => {
+        setCurrentUser(avatarData)
         closeAllPopups()
       })
       .catch((err) => {
@@ -98,7 +111,7 @@ function App() {
   // function handleDeleteCardClick() {
   //   setIsDeletePopupOpen(!isDeletePopupOpen)
   // }
-  
+
 
   function handleCardClick({ name, link }) {
     setSelectedCard({ name, link })
@@ -169,24 +182,11 @@ function App() {
           <span className="popup__error" id="url-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm
-          title="Обновить аватар"
-          name="new-avatar"
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
-          submitButtonText="Сохранить"
-        >
-          <input
-            type="url"
-            id="image-url"
-            className="popup__input"
-            name="url"
-            placeholder="Ссылка на картинку"
-            autoComplete="off"
-            required />
-          <span className="popup__error" id="image-url-error"></span>
-        </PopupWithForm>
+          onUpdateAvatar={handleUpdateAvatar} />
 
         <PopupWithForm
           title="Вы уверены?"

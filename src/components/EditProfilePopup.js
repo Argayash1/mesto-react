@@ -5,6 +5,15 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUser }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    // Подписка на контекст
+    const currentUser = useContext(CurrentUserContext);
+
+    // После загрузки текущего пользователя из API
+    // его данные будут использованы в управляемых компонентах.
+    useEffect(() => {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }, [currentUser]);
 
     function handleChangeName(e) {
         setName(e.target.value)
@@ -24,17 +33,6 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
             about: description,
         });
     }
-
-    // Подписка на контекст
-    const currentUser = useContext(CurrentUserContext);
-    // console.log(currentUser)
-
-    // После загрузки текущего пользователя из API
-    // его данные будут использованы в управляемых компонентах.
-    useEffect(() => {
-        setName(currentUser.name);
-        setDescription(currentUser.about);
-    }, [currentUser]);
 
     return (
         <PopupWithForm

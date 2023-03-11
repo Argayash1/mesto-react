@@ -65,12 +65,12 @@ class Api {
     })
   }
 
-  addNewAvatar(formValues) {
+  addNewAvatar({avatar}) {
     return this._request('/users/me/avatar', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: formValues.url
+        avatar: avatar
       })
     })
   }
