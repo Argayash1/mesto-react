@@ -40,13 +40,13 @@ class Api {
     })
   }
 
-  addNewCard(formValues) {
+  addNewCard({name, link}) {
     return this._request('/cards', {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: formValues.place,
-        link: formValues.url
+        name: name,
+        link: link
       })
     })
   }

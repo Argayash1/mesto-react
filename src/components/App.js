@@ -5,6 +5,7 @@ import Footer from '../components/Footer.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import EditProfilePopup from '../components/EditProfilePopup.js';
 import EditAvatarPopup from '../components/EditAvatarPopup.js';
+import AddPlacePopup from '../components/AddPlacePopup.js';
 import ImagePopup from '../components/ImagePopup.js';
 import { api } from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
@@ -60,10 +61,20 @@ function App() {
   }
 
   function handleUpdateAvatar({ avatar }) {
-    console.log( {avatar} )
     api.addNewAvatar({ avatar })
       .then((avatarData) => {
         setCurrentUser(avatarData)
+        closeAllPopups()
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+  }
+
+  function handleAddPlaceSubmit({ name, link }) {
+    api.addNewCard({ name, link })
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
         closeAllPopups()
       })
       .catch((err) => {
@@ -84,7 +95,7 @@ function App() {
         console.log(err); // выведем ошибку в консоль
       });
   }
-  
+
   function handleCardDelete(card) {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.deleteCard(card._id)
@@ -152,35 +163,11 @@ function App() {
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
           onUpdateUser={handleUpdateUser} />
 
-        <PopupWithForm
-          title="Новое место"
-          name="card"
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
-          submitButtonText="Создать"
-        >
-          <input
-            type="text"
-            id="title"
-            className="popup__input"
-            name="place"
-            placeholder="Название"
-            autoComplete="off"
-            required
-            minLength="2"
-            maxLength="30" />
-          <span className="popup__error" id="title-error"></span>
-          <input
-            type="url"
-            id="url"
-            className="popup__input"
-            name="url"
-            placeholder="Ссылка на картинку"
-            autoComplete="off"
-            required />
-          <span className="popup__error" id="url-error"></span>
-        </PopupWithForm>
+          onAddPlace={handleAddPlaceSubmit} />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
