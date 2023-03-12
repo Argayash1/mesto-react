@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Header from '../components/Header.js';
 import Main from '../components/Main.js';
 import Footer from '../components/Footer.js';
-import PopupWithForm from '../components/PopupWithForm.js';
 import EditProfilePopup from '../components/EditProfilePopup.js';
 import EditAvatarPopup from '../components/EditAvatarPopup.js';
 import AddPlacePopup from '../components/AddPlacePopup.js';
+import ConfirmDeletePopup from '../components/ConfirmDeletePopup.js';
 import ImagePopup from '../components/ImagePopup.js';
 import { api } from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
@@ -18,6 +18,9 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsloading] = useState(false);
+  const [loadingText, setLoadingText] = useState('');
+  const [cardToDelete, setCardToDelete] = useState({});
 
   const states = [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isDeletePopupOpen];
   const isAnyStatesTrue = states.some(state => state === true);
@@ -61,6 +64,7 @@ function App() {
   }
 
   function handleUpdateAvatar({ avatar }) {
+    handleIsloading(true)
     api.addNewAvatar({ avatar })
       .then((avatarData) => {
         setCurrentUser(avatarData)
@@ -72,14 +76,21 @@ function App() {
   }
 
   function handleAddPlaceSubmit({ name, link }) {
+    handleIsloading(true)
     api.addNewCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        closeAllPopups()
+        handleIsloading(true, "Создано!")
+        setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
-      });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          handleIsloading(false)
+        }, 1500)
+      })
   }
 
   function handleCardLike(card) {
@@ -97,14 +108,27 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    handleIsloading(true, "Удаление...")
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id));
+        handleIsloading(true, "Удалено!")
+        setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
+      })
+      .finally(() => {
+        setTimeout(() => {
+          handleIsloading(false)
+        }, 1500)
       });
+  }
+
+  function handleIsloading(isLoading, loadingText = "Сохранение...") {
+    setIsloading(isLoading)
+    setLoadingText(loadingText)
   }
 
   function handleEditAvatarClick() {
@@ -119,10 +143,10 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
   }
 
-  // function handleDeleteCardClick() {
-  //   setIsDeletePopupOpen(!isDeletePopupOpen)
-  // }
-
+  function handleDeleteCardClick(card) {
+    setIsDeletePopupOpen(!isDeletePopupOpen)
+    setCardToDelete(card)
+  }
 
   function handleCardClick({ name, link }) {
     setSelectedCard({ name, link })
@@ -153,36 +177,43 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onCardDelete={handleDeleteCardClick}
           cards={cards} />
+
         <Footer />
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
-          onUpdateUser={handleUpdateUser} />
+          onUpdateUser={handleUpdateUser}
+          isLoading={isLoading}
+          loadingText={loadingText} />
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
-          onAddPlace={handleAddPlaceSubmit} />
+          onAddPlace={handleAddPlaceSubmit}
+          isLoading={isLoading}
+          loadingText={loadingText} />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
-          onUpdateAvatar={handleUpdateAvatar} />
+          onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
+          loadingText={loadingText} />
 
-        <PopupWithForm
-          title="Вы уверены?"
-          name="delete-card"
+        <ConfirmDeletePopup
           isOpen={isDeletePopupOpen}
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
-          submitButtonText="Да"
-        />
+          card={cardToDelete}
+          onCardDelete={handleCardDelete}
+          isLoading={isLoading}
+          loadingText={loadingText} />
 
         <ImagePopup
           card={selectedCard}

@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import PopupWithForm from '../components/PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUser }) {
+function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUser, isLoading, loadingText }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+
     // Подписка на контекст
     const currentUser = useContext(CurrentUserContext);
 
@@ -42,7 +43,7 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
             onClose={onClose}
             onCloseByClickOnOverlay={onCloseByClickOnOverlay}
             onSubmit={handleSubmit}
-            submitButtonText="Сохранить"
+            submitButtonText={isLoading ? loadingText : "Сохранить"}
         >
             <input
                 type="text"

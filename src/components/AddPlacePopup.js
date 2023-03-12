@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PopupWithForm from '../components/PopupWithForm.js';
 
-function AddPlacePopup({ isOpen, onClose, onCloseByClickOnOverlay, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onCloseByClickOnOverlay, onAddPlace, isLoading, loadingText }) {
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
 
-    
     function handleChangeName(e) {
         setName(e.target.value)
     }
@@ -16,12 +15,17 @@ function AddPlacePopup({ isOpen, onClose, onCloseByClickOnOverlay, onAddPlace })
 
     function handleSubmit(e) {
         e.preventDefault();
-      
+
         onAddPlace({
-          name: name,
-          link: link
+            name: name,
+            link: link
         })
-      }
+
+        setTimeout(() => {
+            setName('')
+            setLink('')
+        }, 2500)
+    }
 
     return (
         <PopupWithForm
@@ -31,7 +35,7 @@ function AddPlacePopup({ isOpen, onClose, onCloseByClickOnOverlay, onAddPlace })
             onClose={onClose}
             onCloseByClickOnOverlay={onCloseByClickOnOverlay}
             onSubmit={handleSubmit}
-            submitButtonText="Создать"
+            submitButtonText={isLoading ? loadingText : "Создать"}
         >
             <input
                 type="text"

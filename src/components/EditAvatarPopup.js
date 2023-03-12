@@ -1,7 +1,7 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import PopupWithForm from '../components/PopupWithForm.js';
 
-function EditAvatarPopup({isOpen, onClose, onCloseByClickOnOverlay, onUpdateAvatar}) {
+function EditAvatarPopup({isOpen, onClose, onCloseByClickOnOverlay, onUpdateAvatar, isLoading, loadingText}) {
     const ref = useRef(); // записываем объект, возвращаемый хуком, в переменную
     
     function handleSubmit(e) {
@@ -10,6 +10,10 @@ function EditAvatarPopup({isOpen, onClose, onCloseByClickOnOverlay, onUpdateAvat
         onUpdateAvatar({
           avatar: ref.current.value
         });
+
+        setTimeout(() => {
+          ref.current.value = '';
+      }, 1500)
       }
 
     return (
@@ -20,7 +24,7 @@ function EditAvatarPopup({isOpen, onClose, onCloseByClickOnOverlay, onUpdateAvat
         onClose={onClose}
         onCloseByClickOnOverlay={onCloseByClickOnOverlay}
         onSubmit={handleSubmit}
-        submitButtonText="Сохранить"
+        submitButtonText={isLoading ? loadingText : "Сохранить"}
       >
         <input
           type="url"
