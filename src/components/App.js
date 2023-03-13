@@ -52,14 +52,35 @@ function App() {
     return () => document.removeEventListener('keydown', handleEscapeKey)
   }, [isAnyStatesTrue, selectedCard])
 
-  function handleUpdateUser({ name, about }) {
-    api.editProfile({ name, about })
-      .then((userData) => {
-        setCurrentUser(userData)
-        closeAllPopups()
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
+      });
+  }
+  
+  function handleUpdateUser({ name, about }) {
+    handleIsloading(true)
+    api.editProfile({ name, about })
+      .then((userData) => {
+        setCurrentUser(userData)
+        handleIsloading(true, "Сохранено!")
+        setTimeout(closeAllPopups, 1000)
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      })
+      .finally(() => {
+        setTimeout(() => {
+          handleIsloading(false)
+        }, 1500)
       });
   }
 
@@ -68,10 +89,16 @@ function App() {
     api.addNewAvatar({ avatar })
       .then((avatarData) => {
         setCurrentUser(avatarData)
-        closeAllPopups()
+        handleIsloading(true, "Сохранено!")
+        setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
+      })
+      .finally(() => {
+        setTimeout(() => {
+          handleIsloading(false)
+        }, 1500)
       });
   }
 
@@ -91,20 +118,6 @@ function App() {
           handleIsloading(false)
         }, 1500)
       })
-  }
-
-  function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-
-    // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-      })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
   }
 
   function handleCardDelete(card) {
