@@ -75,6 +75,7 @@ function App() {
         setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
+        handleIsloading(true, "Ошибка запроса!")
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
@@ -87,12 +88,13 @@ function App() {
   function handleUpdateAvatar({ avatar }) {
     handleIsloading(true)
     api.addNewAvatar({ avatar })
-      .then((avatarData) => {
-        setCurrentUser(avatarData)
+      .then((userData) => {
+        setCurrentUser(userData)
         handleIsloading(true, "Сохранено!")
         setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
+        handleIsloading(true, "Ошибка запроса!")
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
@@ -111,6 +113,7 @@ function App() {
         setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
+        handleIsloading(true, "Ошибка запроса!")
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
@@ -130,6 +133,7 @@ function App() {
         setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
+        handleIsloading(true, "Ошибка запроса!")
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {

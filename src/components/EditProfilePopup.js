@@ -1,10 +1,10 @@
-import { useState, useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
+import useValidation from '../components/useValidation.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUser, isLoading, loadingText }) {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    const { values, errors, onChange, resetValidation } = useValidation();
 
     // Подписка на контекст
     const currentUser = useContext(CurrentUserContext);
@@ -12,17 +12,8 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
     // После загрузки текущего пользователя из API
     // его данные будут использованы в управляемых компонентах.
     useEffect(() => {
-        setName(currentUser.name);
-        setDescription(currentUser.about);
-    }, [currentUser]);
-
-    function handleChangeName(e) {
-        setName(e.target.value)
-    }
-
-    function handleChangeDescription(e) {
-        setDescription(e.target.value)
-    }
+        resetValidation({name: currentUser.name, about: currentUser.about});
+    }, [currentUser, isOpen, resetValidation]);
 
     function handleSubmit(e) {
         // Запрещаем браузеру переходить по адресу формы
@@ -30,8 +21,8 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
 
         // Передаём значения управляемых компонентов во внешний обработчик
         onUpdateUser({
-            name,
-            about: description,
+            name: values.name,
+            about: values.about,
         });
     }
 
@@ -47,8 +38,8 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
         >
             <input
                 type="text"
-                value={name || ''}
-                onChange={handleChangeName}
+                value={values.name || ''}
+                onChange={onChange}
                 id="name"
                 className="popup__input"
                 name="name"
@@ -57,11 +48,11 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
                 required
                 minLength="2"
                 maxLength="40" />
-            <span className="popup__error" id="name-error"></span>
+            <span className={`popup__error ${errors.name !== "" && "popup__error_visible"}`} id="name-error">{errors.name}</span>
             <input
                 type="text"
-                value={description || ''}
-                onChange={handleChangeDescription}
+                value={values.about || ''}
+                onChange={onChange}
                 id="profession"
                 className="popup__input"
                 name="about"
@@ -70,7 +61,7 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
                 required
                 minLength="2"
                 maxLength="200" />
-            <span className="popup__error" id="profession-error"></span>
+            <span className={`popup__error ${errors.about !== "" && "popup__error_visible"}`} id="profession-error">{errors.about}</span>
         </PopupWithForm>
     )
 }
