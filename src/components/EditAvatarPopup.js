@@ -11,7 +11,7 @@ function EditAvatarPopup({isOpen, onClose, onCloseByClickOnOverlay, onUpdateAvat
       } else {
         setIsValid(false)
       }
-    }
+    };
     
     function handleSubmit(e) {
         e.preventDefault();

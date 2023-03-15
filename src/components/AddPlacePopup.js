@@ -4,14 +4,14 @@ import PopupWithForm from '../components/PopupWithForm.js';
 
 
 function AddPlacePopup({ isOpen, onClose, onCloseByClickOnOverlay, onAddPlace, isLoading, loadingText }) {
-    const { values, errors, onChange, resetValidation } = useValidation();
-
+    const { values, errors, formValid, onChange, resetValidation } = useValidation();
+   
     useEffect(() => {
         resetValidation();
     }, [isOpen, resetValidation]);
 
-
-
+    console.log(formValid)
+    
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -30,6 +30,8 @@ function AddPlacePopup({ isOpen, onClose, onCloseByClickOnOverlay, onAddPlace, i
             onCloseByClickOnOverlay={onCloseByClickOnOverlay}
             onSubmit={handleSubmit}
             submitButtonText={isLoading ? loadingText : "Создать"}
+            isLoading={isLoading}
+            isValid={!formValid}
         >
             <input
                 type="text"

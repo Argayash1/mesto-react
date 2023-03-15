@@ -4,7 +4,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUser, isLoading, loadingText }) {
-    const { values, errors, onChange, resetValidation } = useValidation();
+    const { values, errors, formValid, onChange, resetValidation } = useValidation();
 
     // Подписка на контекст
     const currentUser = useContext(CurrentUserContext);
@@ -12,7 +12,7 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
     // После загрузки текущего пользователя из API
     // его данные будут использованы в управляемых компонентах.
     useEffect(() => {
-        resetValidation({name: currentUser.name, about: currentUser.about});
+        resetValidation({name: currentUser.name, about: currentUser.about}, {}, true);
     }, [currentUser, isOpen, resetValidation]);
 
     function handleSubmit(e) {
@@ -35,6 +35,8 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
             onCloseByClickOnOverlay={onCloseByClickOnOverlay}
             onSubmit={handleSubmit}
             submitButtonText={isLoading ? loadingText : "Сохранить"}
+            isLoading={isLoading}
+            isValid={!formValid}
         >
             <input
                 type="text"
