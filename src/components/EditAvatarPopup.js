@@ -8,6 +8,7 @@ function EditAvatarPopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateAva
 
   useEffect(() => {
     resetValidation();
+    ref.current.value = '';
   }, [isOpen, resetValidation]);
 
   function handleSubmit(e) {
@@ -17,9 +18,9 @@ function EditAvatarPopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateAva
       avatar: ref.current.value
     });
 
-    setTimeout(() => {
-      ref.current.value = '';
-    }, 1500)
+    // setTimeout(() => {
+    //   ref.current.value = '';
+    // }, 1500)
   }
 
   return (
@@ -41,11 +42,11 @@ function EditAvatarPopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateAva
         onChange={onChange}
         id="image-url"
         className="popup__input"
-        name="url"
+        name="name"
         placeholder="Ссылка на картинку"
         autoComplete="off"
         required />
-      <span className={`popup__error ${errors.url !== "" && "popup__error_visible"}`} id="image-url-error">{errors.url}</span>
+      <span className={`popup__error ${errors.name !== "" && "popup__error_visible"}`} id="image-url-error">{errors.name}</span>
     </PopupWithForm>
   )
 }
