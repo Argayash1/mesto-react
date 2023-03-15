@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react'
-import useValidation from '../components/useValidation.js';
+import useValidation from '../hooks/useValidation.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 
 function EditAvatarPopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateAvatar, isLoading, loadingText }) {
@@ -8,6 +8,7 @@ function EditAvatarPopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateAva
 
   useEffect(() => {
     resetValidation();
+    ref.current.value = '';
   }, [isOpen, resetValidation]);
 
   function handleSubmit(e) {
@@ -16,10 +17,6 @@ function EditAvatarPopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateAva
     onUpdateAvatar({
       avatar: ref.current.value
     });
-
-    setTimeout(() => {
-      ref.current.value = '';
-    }, 1500)
   }
 
   return (
@@ -45,7 +42,7 @@ function EditAvatarPopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateAva
         placeholder="Ссылка на картинку"
         autoComplete="off"
         required />
-      <span className={`popup__error ${errors.url !== "" && "popup__error_visible"}`} id="image-url-error">{errors.url}</span>
+      <span className="popup__error" id="image-url-error">{errors.url}</span>
     </PopupWithForm>
   )
 }

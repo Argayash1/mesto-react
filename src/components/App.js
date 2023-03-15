@@ -18,12 +18,16 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isEditProfilePopupLoading, setIsEditProfilePopuploading] = useState(false);
+  const [isAddPlacePopupLoading, setIsAddPlacePopuploading] = useState(false);
+  const [isEditAvatarPopupLoading, setIsEditAvatarPopuploading] = useState(false);
+  const [isDeletePopupLoading, setIsDeletePopuploading] = useState(false);
   const [isLoading, setIsloading] = useState(false);
   const [loadingText, setLoadingText] = useState('');
   const [cardToDelete, setCardToDelete] = useState({});
 
-  const states = [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isDeletePopupOpen];
-  const isAnyStatesTrue = states.some(state => state === true);
+  const popupsIsOpenStateList = [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isDeletePopupOpen];
+  const isAnyPopupOpened = popupsIsOpenStateList.some(state => state);
 
 
   useEffect(() => {
@@ -45,12 +49,12 @@ function App() {
       }
     }
 
-    if (isAnyStatesTrue || Object.keys(selectedCard).length > 0) {
+    if (isAnyPopupOpened || Object.keys(selectedCard).length > 0) {
       document.addEventListener('keydown', handleEscapeKey)
     }
 
     return () => document.removeEventListener('keydown', handleEscapeKey)
-  }, [isAnyStatesTrue, selectedCard])
+  }, [isAnyPopupOpened, selectedCard])
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -149,19 +153,19 @@ function App() {
   }
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
+    setIsEditAvatarPopupOpen(true)
   }
 
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen)
+    setIsEditProfilePopupOpen(true)
   }
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
+    setIsAddPlacePopupOpen(true)
   }
 
   function handleDeleteCardClick(card) {
-    setIsDeletePopupOpen(!isDeletePopupOpen)
+    setIsDeletePopupOpen(true)
     setCardToDelete(card)
   }
 

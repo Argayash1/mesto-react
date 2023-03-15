@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react'
-import useValidation from '../components/useValidation.js';
+import useValidation from '../hooks/useValidation.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
@@ -12,7 +12,7 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
     // После загрузки текущего пользователя из API
     // его данные будут использованы в управляемых компонентах.
     useEffect(() => {
-        resetValidation({name: currentUser.name, about: currentUser.about}, {}, true);
+        resetValidation({ name: currentUser.name, about: currentUser.about }, {}, true);
     }, [currentUser, isOpen, resetValidation]);
 
     function handleSubmit(e) {
@@ -50,7 +50,11 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
                 required
                 minLength="2"
                 maxLength="40" />
-            <span className={`popup__error ${errors.name !== "" && "popup__error_visible"}`} id="name-error">{errors.name}</span>
+            <span
+                className={`popup__error ${errors.name !== "" && "popup__error_visible"}`}
+                id="name-error">
+                {errors.name}
+            </span>
             <input
                 type="text"
                 value={values.about || ''}
@@ -63,7 +67,11 @@ function EditProfilePopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateUs
                 required
                 minLength="2"
                 maxLength="200" />
-            <span className={`popup__error ${errors.about !== "" && "popup__error_visible"}`} id="profession-error">{errors.about}</span>
+            <span
+                className={`popup__error ${errors.about !== "" && "popup__error_visible"}`}
+                id="profession-error">
+                {errors.about}
+            </span>
         </PopupWithForm>
     )
 }

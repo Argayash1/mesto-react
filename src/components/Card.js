@@ -9,7 +9,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete}) {
   const cardLikeButtonClassName = (
     `element__like-button ${isLiked && 'element__like-button_active'}`
   );
-// console.log(onCardDelete)
+  
   function handleClick() {
     onCardClick(card);
   }

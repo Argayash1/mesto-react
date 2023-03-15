@@ -58,13 +58,6 @@ class Api {
     })
   }
 
-  setLike(cardId, method) {
-    return this._request(`/cards/${cardId}/likes`, {
-      method: method,
-      headers: this._headers
-    })
-  }
-
   addNewAvatar({avatar}) {
     return this._request('/users/me/avatar', {
       method: 'PATCH',
