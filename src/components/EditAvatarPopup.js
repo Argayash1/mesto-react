@@ -4,7 +4,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 
 function EditAvatarPopup({ isOpen, onClose, onCloseByClickOnOverlay, onUpdateAvatar, isLoading, loadingText }) {
   const ref = useRef(); // записываем объект, возвращаемый хуком, в переменную
-  const { values, errors, formValid, onChange, resetValidation } = useValidation();
+  const { values, errors, formValid, onChange, resetValidation } = useValidation(); // данные для валидации
 
   useEffect(() => {
     resetValidation();
