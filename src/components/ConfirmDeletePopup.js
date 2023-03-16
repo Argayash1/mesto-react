@@ -1,24 +1,33 @@
-// import { useState, useEffect, useContext } from 'react'
-import PopupWithForm from '../components/PopupWithForm.js';
-// import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import Popup from "../components/Popup.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
-function ConfirmDeletePopup({ isOpen, onClose, onCloseByClickOnOverlay, card, onCardDelete, isLoading, loadingText }) {
-    function handleSubmit(e) {
-        e.preventDefault();
-    
-        onCardDelete(card)
-      }
+function ConfirmDeletePopup({
+  isOpen,
+  onClose,
+  card,
+  onCardDelete,
+  isLoading,
+  loadingText,
+  name,
+}) {
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    return (
-        <PopupWithForm
-            title="Вы уверены?"
-            name="delete-card"
-            isOpen={isOpen}
-            onClose={onClose}
-            onCloseByClickOnOverlay={onCloseByClickOnOverlay}
-            onSubmit={handleSubmit}
-            submitButtonText={isLoading ? loadingText : "Да"} />
-    )
+    onCardDelete(card);
+  }
+
+  return (
+    <Popup name={name} isOpen={isOpen} onClose={onClose}>
+      <PopupWithForm
+        title="Вы уверены?"
+        name={name}
+        isOpen={isOpen}
+        onClose={onClose}
+        onSubmit={handleSubmit}
+        submitButtonText={isLoading ? loadingText : "Да"}
+      />
+    </Popup>
+  );
 }
 
 export default ConfirmDeletePopup;

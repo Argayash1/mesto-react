@@ -1,4 +1,4 @@
-function PopupWithForm({title, name, children, isOpen, onClose, onCloseByClickOnOverlay, onSubmit, submitButtonText, isLoading, isValid}) {
+function PopupWithForm({title, name, children, isOpen, onClose, onSubmit, submitButtonText, isLoading, isValid}) {
   const submitButtonDisable = (
     (isLoading || isValid) && true
   );
@@ -8,7 +8,6 @@ function PopupWithForm({title, name, children, isOpen, onClose, onCloseByClickOn
   );
 
     return (
-        <section className={`popup popup_type_${name} ${isOpen ? "popup_is-opened" : ""}`} onMouseDown={onCloseByClickOnOverlay}>
         <div className="popup__container">
           <button className="popup__close" type="button" onClick={onClose}></button>
           <h2 className="popup__title">{title}</h2>
@@ -17,7 +16,6 @@ function PopupWithForm({title, name, children, isOpen, onClose, onCloseByClickOn
             <button className={submitButtonClassName} type="submit" disabled={submitButtonDisable}>{submitButtonText}</button>
           </form>
         </div>
-      </section>
     );
 }
 
