@@ -16,19 +16,20 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({});
-  const [cards, setCards] = useState([]);
   const [isEditProfilePopupLoading, setIsEditProfilePopuploading] = useState(false);
   const [isAddPlacePopupLoading, setIsAddPlacePopuploading] = useState(false);
   const [isEditAvatarPopupLoading, setIsEditAvatarPopuploading] = useState(false);
   const [isDeletePopupLoading, setIsDeletePopuploading] = useState(false);
-  const [isLoading, setIsloading] = useState(false);
-  const [loadingText, setLoadingText] = useState('');
+  const [editProfilePopupLoadingText, setEditProfilePopupLoadingText] = useState('');
+  const [addPlacePopupLoadingText, setAddPlacePopupLoadingText] = useState('');
+  const [editAvatarPopupLoadingText, setEditAvatarPopupLoadingText] = useState('');
+  const [deletePopuploadingText, setDeletePopupLoadingText] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
   const [cardToDelete, setCardToDelete] = useState({});
 
   const popupsIsOpenStateList = [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isDeletePopupOpen];
   const isAnyPopupOpened = popupsIsOpenStateList.some(state => state);
-
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -71,84 +72,84 @@ function App() {
   }
   
   function handleUpdateUser({ name, about }) {
-    handleIsloading(true)
+    setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText)
     api.editProfile({ name, about })
       .then((userData) => {
         setCurrentUser(userData)
-        handleIsloading(true, "Сохранено!")
+        setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText, "Сохранено!")
         setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
-        handleIsloading(true, "Ошибка запроса!")
+        setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText, "Ошибка запроса!")
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          handleIsloading(false)
+          setIsLoading(setIsEditProfilePopuploading, false, setEditProfilePopupLoadingText)
         }, 1500)
       });
   }
 
   function handleUpdateAvatar({ avatar }) {
-    handleIsloading(true)
+    setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText)
     api.addNewAvatar({ avatar })
       .then((userData) => {
         setCurrentUser(userData)
-        handleIsloading(true, "Сохранено!")
+        setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText, "Сохранено!")
         setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
-        handleIsloading(true, "Ошибка запроса!")
+        setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText, "Ошибка запроса!")
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          handleIsloading(false)
+          setIsLoading(setIsEditAvatarPopuploading, false, setEditAvatarPopupLoadingText)
         }, 1500)
       });
   }
 
   function handleAddPlaceSubmit({ name, link }) {
-    handleIsloading(true)
+    setIsLoading(setIsAddPlacePopuploading, true, setAddPlacePopupLoadingText)
     api.addNewCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        handleIsloading(true, "Создано!")
+        setIsLoading(setIsAddPlacePopuploading, true, setAddPlacePopupLoadingText, "Создано!")
         setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
-        handleIsloading(true, "Ошибка запроса!")
+        setIsLoading(setIsAddPlacePopuploading, true, setAddPlacePopupLoadingText, "Ошибка запроса!")
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          handleIsloading(false)
+          setIsLoading(setIsAddPlacePopuploading, false, setAddPlacePopupLoadingText)
         }, 1500)
       })
   }
 
   function handleCardDelete(card) {
-    handleIsloading(true, "Удаление...")
+    setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Удаление...")
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id));
-        handleIsloading(true, "Удалено!")
+        setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Удалено!")
         setTimeout(closeAllPopups, 1000)
       })
       .catch((err) => {
-        handleIsloading(true, "Ошибка запроса!")
+        setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Ошибка запроса!")
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          handleIsloading(false)
+          setIsLoading(setIsDeletePopuploading, false, setDeletePopupLoadingText)
         }, 1500)
       });
   }
 
-  function handleIsloading(isLoading, loadingText = "Сохранение...") {
-    setIsloading(isLoading)
+  function setIsLoading(setIsPopupLoading, isPopupLoading, setLoadingText, loadingText = "Сохранение...") {
+    setIsPopupLoading(isPopupLoading)
     setLoadingText(loadingText)
   }
 
@@ -208,24 +209,24 @@ function App() {
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
           onUpdateUser={handleUpdateUser}
-          isLoading={isLoading}
-          loadingText={loadingText} />
+          isLoading={isEditProfilePopupLoading}
+          loadingText={editProfilePopupLoadingText} />
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
           onAddPlace={handleAddPlaceSubmit}
-          isLoading={isLoading}
-          loadingText={loadingText} />
+          isLoading={isAddPlacePopupLoading}
+          loadingText={addPlacePopupLoadingText} />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
           onUpdateAvatar={handleUpdateAvatar}
-          isLoading={isLoading}
-          loadingText={loadingText} />
+          isLoading={isEditAvatarPopupLoading}
+          loadingText={editAvatarPopupLoadingText} />
 
         <ConfirmDeletePopup
           isOpen={isDeletePopupOpen}
@@ -233,8 +234,8 @@ function App() {
           onCloseByClickOnOverlay={closeAllPopupsByCliclOnOverlay}
           card={cardToDelete}
           onCardDelete={handleCardDelete}
-          isLoading={isLoading}
-          loadingText={loadingText} />
+          isLoading={isDeletePopupLoading}
+          loadingText={deletePopuploadingText} />
 
         <ImagePopup
           card={selectedCard}
