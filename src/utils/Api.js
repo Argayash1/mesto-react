@@ -15,74 +15,75 @@ class Api {
 
   // Огромное Вам спасибо за этот метод, с большим интересом разобрался и использовал его!
   _request(endpoint, options) {
-    return fetch(`${this._baseUrl}${endpoint}`, options).then(this._checkResponse)
+    return fetch(`${this._baseUrl}${endpoint}`, options).then(this._checkResponse);
   }
 
   getUserInfo() {
-    return this._request('/users/me', {
-      headers: this._headers
-    })
+    return this._request("/users/me", {
+      headers: this._headers,
+    });
   }
 
   getInitialCards() {
-    return this._request('/cards', {
-      headers: this._headers
-    })
+    return this._request("/cards", {
+      headers: this._headers,
+    });
   }
 
-  editProfile({name, about}) {
-    return this._request('/users/me', {
-      method: 'PATCH',
+  editProfile({ name, about }) {
+    return this._request("/users/me", {
+      method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name, about
-      })
-    })
+        name,
+        about,
+      }),
+    });
   }
 
-  addNewCard({name, link}) {
-    return this._request('/cards', {
-      method: 'POST',
+  addNewCard({ name, link }) {
+    return this._request("/cards", {
+      method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        link: link
-      })
-    })
+        link: link,
+      }),
+    });
   }
 
   deleteCard(cardId) {
     return this._request(`/cards/${cardId}`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
+      method: "DELETE",
+      headers: this._headers,
+    });
   }
 
-  addNewAvatar({avatar}) {
-    return this._request('/users/me/avatar', {
-      method: 'PATCH',
+  addNewAvatar({ avatar }) {
+    return this._request("/users/me/avatar", {
+      method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar
-      })
-    })
+        avatar: avatar,
+      }),
+    });
   }
 
   changeLikeCardStatus(cardId, isLiked) {
     return this._request(`/cards/${cardId}/likes`, {
-      method: `${isLiked ? 'PUT' : 'DELETE'}`,
-      headers: this._headers
-    })
+      method: `${isLiked ? "PUT" : "DELETE"}`,
+      headers: this._headers,
+    });
   }
 }
 
 // Создаём экземпляр класса Api
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-59',
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-59",
   headers: {
-    authorization: 'cfebb862-70aa-4cd6-a9bd-6d5609babeaa',
-    'Content-Type': 'application/json'
-  }
+    authorization: "cfebb862-70aa-4cd6-a9bd-6d5609babeaa",
+    "Content-Type": "application/json",
+  },
 });
 
-export { api }
+export { api };

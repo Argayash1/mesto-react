@@ -3,17 +3,8 @@ import useValidation from "../hooks/useValidation.js";
 import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 
-
-function AddPlacePopup({
-  isOpen,
-  onClose,
-  onAddPlace,
-  isLoading,
-  loadingText,
-  name,
-}) {
-  const { values, errors, formValid, onChange, resetValidation } =
-    useValidation();
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, loadingText, name }) {
+  const { values, errors, formValid, onChange, resetValidation } = useValidation();
 
   useEffect(() => {
     resetValidation();
@@ -33,7 +24,6 @@ function AddPlacePopup({
       <PopupWithForm
         title="Новое место"
         name={name}
-        isOpen={isOpen}
         onClose={onClose}
         onSubmit={handleSubmit}
         submitButtonText={isLoading ? loadingText : "Создать"}
@@ -45,7 +35,7 @@ function AddPlacePopup({
           value={values.name || ""}
           onChange={onChange}
           id="title"
-          className="popup__input"
+          className={`popup__input ${errors.name && "popup__input_type_error"}`}
           name="name"
           placeholder="Название"
           autoComplete="off"
@@ -53,13 +43,7 @@ function AddPlacePopup({
           minLength="2"
           maxLength="30"
         />
-        <span
-          className={`popup__error ${
-            errors.name !== "" && "popup__error_visible"
-          }`}
-          id="title-error"
-          name="name"
-        >
+        <span className={`popup__error ${errors.name && "popup__error_visible"}`} id="title-error" name="name">
           {errors.name}
         </span>
         <input
@@ -67,19 +51,13 @@ function AddPlacePopup({
           value={values.link || ""}
           onChange={onChange}
           id="url"
-          className="popup__input"
+          className={`popup__input ${errors.link && "popup__input_type_error"}`}
           name="link"
           placeholder="Ссылка на картинку"
           autoComplete="off"
           required
         />
-        <span
-          className={`popup__error ${
-            errors.link !== "" && "popup__error_visible"
-          }`}
-          id="url-error"
-          name="link"
-        >
+        <span className={`popup__error ${errors.link && "popup__error_visible"}`} id="url-error" name="link">
           {errors.link}
         </span>
       </PopupWithForm>

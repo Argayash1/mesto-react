@@ -4,16 +4,8 @@ import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-function EditProfilePopup({
-  isOpen,
-  onClose,
-  onUpdateUser,
-  isLoading,
-  loadingText,
-  name,
-}) {
-  const { values, errors, formValid, onChange, resetValidation } =
-    useValidation();
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, loadingText, name }) {
+  const { values, errors, formValid, onChange, resetValidation } = useValidation();
 
   // Подписка на контекст
   const currentUser = useContext(CurrentUserContext);
@@ -21,11 +13,7 @@ function EditProfilePopup({
   // После загрузки текущего пользователя из API
   // его данные будут использованы в управляемых компонентах.
   useEffect(() => {
-    resetValidation(
-      { name: currentUser.name, about: currentUser.about },
-      {},
-      true
-    );
+    resetValidation({ name: currentUser.name, about: currentUser.about }, {}, true);
   }, [currentUser, isOpen, resetValidation]);
 
   function handleSubmit(e) {
@@ -44,7 +32,6 @@ function EditProfilePopup({
       <PopupWithForm
         title="Редактировать профиль"
         name={name}
-        isOpen={isOpen}
         onClose={onClose}
         onSubmit={handleSubmit}
         submitButtonText={isLoading ? loadingText : "Сохранить"}
@@ -56,7 +43,7 @@ function EditProfilePopup({
           value={values.name || ""}
           onChange={onChange}
           id="name"
-          className="popup__input"
+          className={`popup__input ${errors.name && "popup__input_type_error"}`}
           name="name"
           placeholder="Имя"
           autoComplete="off"
@@ -64,12 +51,7 @@ function EditProfilePopup({
           minLength="2"
           maxLength="40"
         />
-        <span
-          className={`popup__error ${
-            errors.name !== "" && "popup__error_visible"
-          }`}
-          id="name-error"
-        >
+        <span className={`popup__error ${errors.name && "popup__error_visible"}`} id="name-error">
           {errors.name}
         </span>
         <input
@@ -77,7 +59,7 @@ function EditProfilePopup({
           value={values.about || ""}
           onChange={onChange}
           id="profession"
-          className="popup__input"
+          className={`popup__input ${errors.about && "popup__input_type_error"}`}
           name="about"
           placeholder="Профессия"
           autoComplete="off"
@@ -85,12 +67,7 @@ function EditProfilePopup({
           minLength="2"
           maxLength="200"
         />
-        <span
-          className={`popup__error ${
-            errors.about !== "" && "popup__error_visible"
-          }`}
-          id="profession-error"
-        >
+        <span className={`popup__error ${errors.about && "popup__error_visible"}`} id="profession-error">
           {errors.about}
         </span>
       </PopupWithForm>

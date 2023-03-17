@@ -16,17 +16,13 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [isEditProfilePopupLoading, setIsEditProfilePopuploading] =
-    useState(false);
+  const [isEditProfilePopupLoading, setIsEditProfilePopuploading] = useState(false);
   const [isAddPlacePopupLoading, setIsAddPlacePopuploading] = useState(false);
-  const [isEditAvatarPopupLoading, setIsEditAvatarPopuploading] =
-    useState(false);
+  const [isEditAvatarPopupLoading, setIsEditAvatarPopuploading] = useState(false);
   const [isDeletePopupLoading, setIsDeletePopuploading] = useState(false);
-  const [editProfilePopupLoadingText, setEditProfilePopupLoadingText] =
-    useState("");
+  const [editProfilePopupLoadingText, setEditProfilePopupLoadingText] = useState("");
   const [addPlacePopupLoadingText, setAddPlacePopupLoadingText] = useState("");
-  const [editAvatarPopupLoadingText, setEditAvatarPopupLoadingText] =
-    useState("");
+  const [editAvatarPopupLoadingText, setEditAvatarPopupLoadingText] = useState("");
   const [deletePopuploadingText, setDeletePopupLoadingText] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -51,9 +47,7 @@ function App() {
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -61,77 +55,41 @@ function App() {
   }
 
   function handleUpdateUser({ name, about }) {
-    setIsLoading(
-      setIsEditProfilePopuploading,
-      true,
-      setEditProfilePopupLoadingText
-    );
+    setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText);
     api
       .editProfile({ name, about })
       .then((userData) => {
         setCurrentUser(userData);
-        setIsLoading(
-          setIsEditProfilePopuploading,
-          true,
-          setEditProfilePopupLoadingText,
-          "Сохранено!"
-        );
+        setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText, "Сохранено!");
         setTimeout(closeAllPopups, 1000);
       })
       .catch((err) => {
-        setIsLoading(
-          setIsEditProfilePopuploading,
-          true,
-          setEditProfilePopupLoadingText,
-          "Ошибка запроса!"
-        );
+        setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText, "Ошибка запроса!");
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          setIsLoading(
-            setIsEditProfilePopuploading,
-            false,
-            setEditProfilePopupLoadingText
-          );
+          setIsLoading(setIsEditProfilePopuploading, false, setEditProfilePopupLoadingText);
         }, 1500);
       });
   }
 
   function handleUpdateAvatar({ avatar }) {
-    setIsLoading(
-      setIsEditAvatarPopuploading,
-      true,
-      setEditAvatarPopupLoadingText
-    );
+    setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText);
     api
       .addNewAvatar({ avatar })
       .then((userData) => {
         setCurrentUser(userData);
-        setIsLoading(
-          setIsEditAvatarPopuploading,
-          true,
-          setEditAvatarPopupLoadingText,
-          "Сохранено!"
-        );
+        setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText, "Сохранено!");
         setTimeout(closeAllPopups, 1000);
       })
       .catch((err) => {
-        setIsLoading(
-          setIsEditAvatarPopuploading,
-          true,
-          setEditAvatarPopupLoadingText,
-          "Ошибка запроса!"
-        );
+        setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText, "Ошибка запроса!");
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          setIsLoading(
-            setIsEditAvatarPopuploading,
-            false,
-            setEditAvatarPopupLoadingText
-          );
+          setIsLoading(setIsEditAvatarPopuploading, false, setEditAvatarPopupLoadingText);
         }, 1500);
       });
   }
@@ -142,80 +100,42 @@ function App() {
       .addNewCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        setIsLoading(
-          setIsAddPlacePopuploading,
-          true,
-          setAddPlacePopupLoadingText,
-          "Создано!"
-        );
+        setIsLoading(setIsAddPlacePopuploading, true, setAddPlacePopupLoadingText, "Создано!");
         setTimeout(closeAllPopups, 1000);
       })
       .catch((err) => {
-        setIsLoading(
-          setIsAddPlacePopuploading,
-          true,
-          setAddPlacePopupLoadingText,
-          "Ошибка запроса!"
-        );
+        setIsLoading(setIsAddPlacePopuploading, true, setAddPlacePopupLoadingText, "Ошибка запроса!");
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          setIsLoading(
-            setIsAddPlacePopuploading,
-            false,
-            setAddPlacePopupLoadingText
-          );
+          setIsLoading(setIsAddPlacePopuploading, false, setAddPlacePopupLoadingText);
         }, 1500);
       });
   }
 
   function handleCardDelete(card) {
-    setIsLoading(
-      setIsDeletePopuploading,
-      true,
-      setDeletePopupLoadingText,
-      "Удаление..."
-    );
+    setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Удаление...");
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id));
-        setIsLoading(
-          setIsDeletePopuploading,
-          true,
-          setDeletePopupLoadingText,
-          "Удалено!"
-        );
+        setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Удалено!");
         setTimeout(closeAllPopups, 1000);
       })
       .catch((err) => {
-        setIsLoading(
-          setIsDeletePopuploading,
-          true,
-          setDeletePopupLoadingText,
-          "Ошибка запроса!"
-        );
+        setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Ошибка запроса!");
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          setIsLoading(
-            setIsDeletePopuploading,
-            false,
-            setDeletePopupLoadingText
-          );
+          setIsLoading(setIsDeletePopuploading, false, setDeletePopupLoadingText);
         }, 1500);
       });
   }
 
-  function setIsLoading(
-    setIsPopupLoading,
-    isPopupLoading,
-    setLoadingText,
-    loadingText = "Сохранение..."
-  ) {
+  function setIsLoading(setIsPopupLoading, isPopupLoading, setLoadingText, loadingText = "Сохранение...") {
     setIsPopupLoading(isPopupLoading);
     setLoadingText(loadingText);
   }
