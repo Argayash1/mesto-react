@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
+
 import Header from "../components/Header.js";
 import Main from "../components/Main.js";
 import Footer from "../components/Footer.js";
+
 import EditProfilePopup from "../components/EditProfilePopup.js";
 import EditAvatarPopup from "../components/EditAvatarPopup.js";
 import AddPlacePopup from "../components/AddPlacePopup.js";
 import ConfirmDeletePopup from "../components/ConfirmDeletePopup.js";
 import ImagePopup from "../components/ImagePopup.js";
-import { api } from "../utils/Api.js";
+
+import api from "../utils/api.js";
+
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function App() {
