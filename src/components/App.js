@@ -171,59 +171,61 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <Header />
+      <div className="body">
+        <div className="page">
+          <Header />
 
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleDeleteCardClick}
-          cards={cards}
-        />
+          <Main
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleDeleteCardClick}
+            cards={cards}
+          />
 
-        <Footer />
+          <Footer />
 
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-          isLoading={isEditProfilePopupLoading}
-          loadingText={editProfilePopupLoadingText}
-          name="profile"
-        />
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+            isLoading={isEditProfilePopupLoading}
+            loadingText={editProfilePopupLoadingText}
+            name="profile"
+          />
 
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlace={handleAddPlaceSubmit}
-          isLoading={isAddPlacePopupLoading}
-          loadingText={addPlacePopupLoadingText}
-          name="card"
-        />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+            isLoading={isAddPlacePopupLoading}
+            loadingText={addPlacePopupLoadingText}
+            name="card"
+          />
 
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-          isLoading={isEditAvatarPopupLoading}
-          loadingText={editAvatarPopupLoadingText}
-          name="new-avatar"
-        />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+            isLoading={isEditAvatarPopupLoading}
+            loadingText={editAvatarPopupLoadingText}
+            name="new-avatar"
+          />
 
-        <ConfirmDeletePopup
-          isOpen={isDeletePopupOpen}
-          onClose={closeAllPopups}
-          card={cardToDelete}
-          onCardDelete={handleCardDelete}
-          isLoading={isDeletePopupLoading}
-          loadingText={deletePopuploadingText}
-          name="delete-card"
-        />
+          <ConfirmDeletePopup
+            isOpen={isDeletePopupOpen}
+            onClose={closeAllPopups}
+            card={cardToDelete}
+            onCardDelete={handleCardDelete}
+            isLoading={isDeletePopupLoading}
+            loadingText={deletePopuploadingText}
+            name="delete-card"
+          />
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} name="image" />
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} name="image" />
+        </div>
       </div>
     </CurrentUserContext.Provider>
   );
