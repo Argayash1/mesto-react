@@ -16,6 +16,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  // Спасибо большое, ну как же я мог не подумать, что при одной переменной перерисовываются все попапы!
   const [isEditProfilePopupLoading, setIsEditProfilePopuploading] = useState(false);
   const [isAddPlacePopupLoading, setIsAddPlacePopuploading] = useState(false);
   const [isEditAvatarPopupLoading, setIsEditAvatarPopuploading] = useState(false);
