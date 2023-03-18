@@ -21,14 +21,14 @@ function App() {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   // Спасибо большое, ну как же я мог не подумать, что при одной переменной перерисовываются все попапы!
-  const [isEditProfilePopupLoading, setIsEditProfilePopuploading] = useState(false);
-  const [isAddPlacePopupLoading, setIsAddPlacePopuploading] = useState(false);
-  const [isEditAvatarPopupLoading, setIsEditAvatarPopuploading] = useState(false);
-  const [isDeletePopupLoading, setIsDeletePopuploading] = useState(false);
+  const [isEditProfilePopupLoading, setIsEditProfilePopupLoading] = useState(false);
+  const [isAddPlacePopupLoading, setIsAddPlacePopupLoading] = useState(false);
+  const [isEditAvatarPopupLoading, setIsEditAvatarPopupLoading] = useState(false);
+  const [isDeletePopupLoading, setIsDeletePopupLoading] = useState(false);
   const [editProfilePopupLoadingText, setEditProfilePopupLoadingText] = useState("");
   const [addPlacePopupLoadingText, setAddPlacePopupLoadingText] = useState("");
   const [editAvatarPopupLoadingText, setEditAvatarPopupLoadingText] = useState("");
-  const [deletePopuploadingText, setDeletePopupLoadingText] = useState("");
+  const [deletePopupLoadingText, setDeletePopupLoadingText] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [cardToDelete, setCardToDelete] = useState({});
@@ -60,82 +60,82 @@ function App() {
   }
 
   function handleUpdateUser({ name, about }) {
-    setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText);
+    setIsLoading(setIsEditProfilePopupLoading, true, setEditProfilePopupLoadingText);
     api
       .editProfile({ name, about })
       .then((userData) => {
         setCurrentUser(userData);
-        setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText, "Сохранено!");
+        setIsLoading(setIsEditProfilePopupLoading, true, setEditProfilePopupLoadingText, "Сохранено!");
         setTimeout(closeAllPopups, 1000);
       })
       .catch((err) => {
-        setIsLoading(setIsEditProfilePopuploading, true, setEditProfilePopupLoadingText, "Ошибка запроса!");
+        setIsLoading(setIsEditProfilePopupLoading, true, setEditProfilePopupLoadingText, "Ошибка запроса!");
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          setIsLoading(setIsEditProfilePopuploading, false, setEditProfilePopupLoadingText);
+          setIsLoading(setIsEditProfilePopupLoading, false, setEditProfilePopupLoadingText);
         }, 1500);
       });
   }
 
   function handleUpdateAvatar({ avatar }) {
-    setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText);
+    setIsLoading(setIsEditAvatarPopupLoading, true, setEditAvatarPopupLoadingText);
     api
       .addNewAvatar({ avatar })
       .then((userData) => {
         setCurrentUser(userData);
-        setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText, "Сохранено!");
+        setIsLoading(setIsEditAvatarPopupLoading, true, setEditAvatarPopupLoadingText, "Сохранено!");
         setTimeout(closeAllPopups, 1000);
       })
       .catch((err) => {
-        setIsLoading(setIsEditAvatarPopuploading, true, setEditAvatarPopupLoadingText, "Ошибка запроса!");
+        setIsLoading(setIsEditAvatarPopupLoading, true, setEditAvatarPopupLoadingText, "Ошибка запроса!");
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          setIsLoading(setIsEditAvatarPopuploading, false, setEditAvatarPopupLoadingText);
+          setIsLoading(setIsEditAvatarPopupLoading, false, setEditAvatarPopupLoadingText);
         }, 1500);
       });
   }
 
   function handleAddPlaceSubmit({ name, link }) {
-    setIsLoading(setIsAddPlacePopuploading, true, setAddPlacePopupLoadingText);
+    setIsLoading(setIsAddPlacePopupLoading, true, setAddPlacePopupLoadingText);
     api
       .addNewCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        setIsLoading(setIsAddPlacePopuploading, true, setAddPlacePopupLoadingText, "Создано!");
+        setIsLoading(setIsAddPlacePopupLoading, true, setAddPlacePopupLoadingText, "Создано!");
         setTimeout(closeAllPopups, 1000);
       })
       .catch((err) => {
-        setIsLoading(setIsAddPlacePopuploading, true, setAddPlacePopupLoadingText, "Ошибка запроса!");
+        setIsLoading(setIsAddPlacePopupLoading, true, setAddPlacePopupLoadingText, "Ошибка запроса!");
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          setIsLoading(setIsAddPlacePopuploading, false, setAddPlacePopupLoadingText);
+          setIsLoading(setIsAddPlacePopupLoading, false, setAddPlacePopupLoadingText);
         }, 1500);
       });
   }
 
   function handleCardDelete(card) {
-    setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Удаление...");
+    setIsLoading(setIsDeletePopupLoading, true, setDeletePopupLoadingText, "Удаление...");
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id));
-        setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Удалено!");
+        setIsLoading(setIsDeletePopupLoading, true, setDeletePopupLoadingText, "Удалено!");
         setTimeout(closeAllPopups, 1000);
       })
       .catch((err) => {
-        setIsLoading(setIsDeletePopuploading, true, setDeletePopupLoadingText, "Ошибка запроса!");
+        setIsLoading(setIsDeletePopupLoading, true, setDeletePopupLoadingText, "Ошибка запроса!");
         console.log(err); // выведем ошибку в консоль
       })
       .finally(() => {
         setTimeout(() => {
-          setIsLoading(setIsDeletePopuploading, false, setDeletePopupLoadingText);
+          setIsLoading(setIsDeletePopupLoading, false, setDeletePopupLoadingText);
         }, 1500);
       });
   }
@@ -225,7 +225,7 @@ function App() {
             card={cardToDelete}
             onCardDelete={handleCardDelete}
             isLoading={isDeletePopupLoading}
-            loadingText={deletePopuploadingText}
+            loadingText={deletePopupLoadingText}
             name="delete-card"
           />
 
