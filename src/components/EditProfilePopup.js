@@ -4,7 +4,7 @@ import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, loadingText, name }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, name }) {
   const { values, errors, formValid, onChange, resetValidation } = useValidation();
 
   // Подписка на контекст
@@ -34,7 +34,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading, loadingTex
         name={name}
         onClose={onClose}
         onSubmit={handleSubmit}
-        submitButtonText={isLoading ? loadingText : "Сохранить"}
+        submitButtonText={isLoading ? "Сохранение..." : "Сохранить"}
         isLoading={isLoading}
         isValid={!formValid}
       >

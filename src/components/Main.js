@@ -4,7 +4,8 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete, cards }) {
   const currentUser = useContext(CurrentUserContext);
-  // Большое Вам спасибо за эту замечательную идею, сейчас ккод выглядит значительно лучше! И огромное спасибо, что сказали про Prettier - поставил и настроил эту программу, сейчас видеть код стало гораздо приятнее!)
+  // Спасибо Вам большое за комментарий, оставил пока длину строки 120, так как если делаю 80, то код
+  // на вид становится слишком дробный)
   const cardsElements = cards.map((card) => {
     return (
       <li className="element" key={card._id}>

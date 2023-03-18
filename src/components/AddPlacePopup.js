@@ -3,7 +3,7 @@ import useValidation from "../hooks/useValidation.js";
 import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, loadingText, name }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, name }) {
   const { values, errors, formValid, onChange, resetValidation } = useValidation();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, loadingText, na
         name={name}
         onClose={onClose}
         onSubmit={handleSubmit}
-        submitButtonText={isLoading ? loadingText : "Создать"}
+        submitButtonText={isLoading ? "Сохранение..." : "Создать"}
         isLoading={isLoading}
         isValid={!formValid}
       >

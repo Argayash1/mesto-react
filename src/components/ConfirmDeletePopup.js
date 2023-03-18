@@ -1,7 +1,7 @@
 import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 
-function ConfirmDeletePopup({ isOpen, onClose, card, onCardDelete, isLoading, loadingText, name }) {
+function ConfirmDeletePopup({ isOpen, onClose, card, onCardDelete, isLoading, name }) {
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -15,7 +15,7 @@ function ConfirmDeletePopup({ isOpen, onClose, card, onCardDelete, isLoading, lo
         name={name}
         onClose={onClose}
         onSubmit={handleSubmit}
-        submitButtonText={isLoading ? loadingText : "Да"}
+        submitButtonText={isLoading ? "Удаление..." : "Да"}
       />
     </Popup>
   );
